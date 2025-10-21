@@ -3,6 +3,9 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import ElementPlus from 'unplugin-element-plus/vite'
+
+
 
 //element-plus按需导入
 import AutoImport from 'unplugin-auto-import/vite'
@@ -15,16 +18,29 @@ export default defineConfig({
     vue(),
     vueDevTools(),
     // ...
+    ElementPlus({
+      useSource: true, // 关键配置：使用源码样式，配合Sass变量定制
+    }),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: "sass" })],
     }),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // 自动导入定制化样式文件进行样式覆盖
+        additionalData: `
+          @use "@/styles/element/index.scss" as *;
+        `,
+      },
     },
   },
 })
