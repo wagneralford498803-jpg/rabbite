@@ -5,11 +5,7 @@ import App from './App.vue'
 import router from './router'
 // 引入全局样式
 import './styles/common.scss'
-//测试
-import { getCategory } from '@/apis/testAPI'
-getCategory().then((res) => {
-  console.log(res)
-})
+
 const app = createApp(App)
 
 app.use(createPinia())
