@@ -21,4 +21,14 @@ export default defineConfig([
 
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
+
+
+  //解决Component name “xxx“ should always be multi-word vue/multi-word-component-names错误
+  {
+    files: ['**/*.vue'],
+    rules: {
+      'vue/multi-word-component-names': 'off',
+    },
+  },
+
 ])
