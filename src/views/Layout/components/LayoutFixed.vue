@@ -1,6 +1,11 @@
 <script setup>
 import {useScroll} from '@vueuse/core'
+import { useCategoryStore } from '@/stores/category'
 const {y} = useScroll(window)
+
+
+//使用Pinia获取导航列表数据
+const categoryStore = useCategoryStore()
 
 </script>
 
@@ -13,32 +18,9 @@ const {y} = useScroll(window)
         <li class="home">
           <RouterLink to="/">首页</RouterLink>
         </li>
-        <li>
-          <RouterLink to="/">居家</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">美食</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">服饰</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">母婴</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">个护</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">严选</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">数码</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">运动</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/">杂项</RouterLink>
+        <!-- 导航列表 -->
+        <li v-for="item in categoryStore.getCategoryList" :key="item.id">
+          <RouterLink :to="'/'">{{ item.name }}</RouterLink>
         </li>
       </ul>
 
